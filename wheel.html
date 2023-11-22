@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Roulette Wheel</title>
+  <style>
+    canvas {
+      border: 1px solid black;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="wheel" width="500" height="500"></canvas>
+  <br>
+  <div>
+    <label for="attendee">Attendee:</label>
+    <input type="text" id="attendee" name="attendee">
+    <label for="movie">Movie:</label>
+    <input type="text" id="movie" name="movie">
+    <button onclick="addAttendeeAndMovie()">Add</button>
+  </div>
+  <br>
+  <table id="attendeeTable">
+    <thead>
+      <tr>
+        <th>Attendee</th>
+        <th>Movie</th>
+      </tr>
+    </thead>
+    <tbody id="attendeeTableBody">
+    </tbody>
+  </table>
+  <br>
+  <button onclick="spinWheel()">Spin</button>
+  <br>
+  <p>Selected Movie: <span id="selectedMovie"></span></p>
+  <p>Selected Attendee: <span id="selectedAttendee"></span></p>
+
+  <script>
+    // Initialize variables
+    var canvas = document.getElementById("wheel");
+    var ctx = canvas.getContext("2d");
+    var radius = canvas.width * 0.4;
+    var attendees = [];
+    var movies = [];
+
+    // Add attendee and movie to table
+    function addAttendeeAndMovie() {
+      var attendeeInput = document.getElementById("attendee");
+      var movieInput = document.getElementById("movie");
+      var attendee = attendeeInput.value;
+      var movie = movieInput.value;
+
+      if (attendee.trim() === "" || movie.trim() === "") {
+        alert("Please enter both attendee and movie.");
+        return;
+      }
+
+      attendees.push(attendee);
+      movies.push(movie);
+
+      attendeeInput.value = "";
+      movieInput.value = "";
+
+      updateAttendeeTable();
+      drawWheel();
+    }
+
+    // Update the attendee table
+    function updateAttendeeTable() {
+      var tableBody = document.getElementById("attendeeTableBody");
+      tableBody.innerHTML = "";
+
+      for (var i = 0; i < attendees.length; i++) {
+        var tr = document.createElement("tr");
+        var td1 = document.createElement("td");
+        td1.textContent = attendees[i];
+        var td2 = document.createElement("td");
+        td2.id = "movie" + i;
+        td2.textContent = movies[i];
+        tr.appendChild(td1);
+        tr.appendChild(td2);
+        tableBody.appendChild(tr);
+      }
+    }
+
+    // Define the spinWheel function
+    function spinWheel() {
+      var spinTimeout = null;
+      var spinAngleStart = 0;
+      var spinTimeTotal = 0;
+      var spinTimeElapsed = 0;
+      var spinAngle = 0;
+      var speed = 30;
+
+      function spin() {
+        spinTimeElapsed += speed;
+        if (spinTimeElapsed >= spinTimeTotal) {
+          clearInterval(spinTimeout);
+          endSpin();
+          return;
+        }
+        var spinAngleDelta = spinAngleStart * easeOut(spinTimeElapsed, 0, 1, spinTimeTotal);
+        spinAngle += spinAngleDelta;
+        drawRouletteWheel();
+      }
+
+      function easeOut(t, b,c, d) {
+  var ts = (t /= d) * t;
+  var tc = ts * t;
+  return b + c * (tc + -3 * ts + 3 * t);
+}
+// Draw the arrow
+ctx.fillStyle = "black";
+ctx.beginPath();
+ctx.moveTo(canvas.width / 2 - 4, 0);
+ctx.lineTo(canvas.width / 2 + 4, 0);
+ctx.lineTo(canvas.width / 2, 20);
+ctx.closePath();
+ctx.fill();
+
+// Draw the center circle
+ctx.beginPath();
+ctx.arc(canvas.width / 2, canvas.height / 2, 60, 0, Math.PI * 2, false);
+ctx.fillStyle = "white";
+ctx.fill();
+ctx.strokeStyle = "black";
+ctx.lineWidth = 2;
+ctx.stroke();
+
+ctx.font = 'bold 16px Arial';
+ctx.fillStyle = 'black';
+ctx.textAlign = 'center';
+ctx.textBaseline = 'middle';
+
+// Draw the movie titles on the wheel
+for (var i = 0; i < movies.length; i++) {
+var angle = i * Math.PI * 2 / movies.length;
+ctx.rotate(angle);
+ctx.translate(radius * 0.75, 0);
+ctx.rotate(-angle);
+ctx.fillText(movies[i], canvas.width / 2, canvas.height / 2);
+ctx.rotate(angle);
+ctx.translate(-radius * 0.75, 0);
+ctx.rotate(-angle);
+}
+}
+
+drawWheel();
+</script>
+</body>
+</html>
+```
+

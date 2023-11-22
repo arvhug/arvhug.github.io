@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>What to Watch</title>
+  </head>
+  <body>
+    <h1>What to Watch</h1>
+    <p>Enter one or more keywords (separated by commas) to get movie recommendations:</p>
+    <input type="text" id="keyword-input">
+    <label for="sort-by-select">Sort by:</label>
+    <select id="sort-by-select">
+      <option value="popularity.desc">Popularity Descending</option>
+      <option value="popularity.asc">Popularity Ascending</option>
+      <option value="vote_average.desc">Rating Descending</option>
+      <option value="vote_average.asc">Rating Ascending</option>
+      <option value="release_date.desc">Release Date Descending</option>
+      <option value="release_date.asc">Release Date Ascending</option>
+    </select>
+    <button onclick="getRecommendations()">Get Recommendations</button>
+    <div id="recommendations"></div>
+
+    <script>
+      const keywordInput = document.getElementById('keyword-input');
+      const sortBySelect = document.getElementById('sort-by-select');
+
+      sortBySelect.addEventListener('change', getRecommendations);
+      document.querySelector('button').addEventListener('click', getRecommendations);
+
+      function getRecommendations() {
+        const keyword = keywordInput.value.replace(/\s/g, ''); // remove spaces
+        const keywordsArray = keyword.split(','); // split keywords by comma
+        const keywords = keywordsArray.join('|'); // join keywords with '|'
+        const sortBy = sortBySelect.value;
+        const apiKey = '8ff1c3a8d10a54afc5f1c8d1d7433807';
+        const apiUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&query=${keywords}&sort_by=${sortBy}`;
+
+        fetch(apiUrl)
+          .then(response => response.json())
+          .then(data => {
+            const movies = data.results;
+            const recommendationsHtml = movies.map(movie => {
+              return `<div>
+                        <h3>${movie.title}</h3>
+                        <p>${movie.overview}</p>
+                        <img src="https://image.tmdb.org/t/p/w500/${movie.poster_path}" alt="${movie.title} Poster">
+                      </div>`;
+            }).join('');
+            document.getElementById('recommendations').innerHTML = recommendationsHtml;
+          })
+          .catch(error => {
+            console.error(error);
+          });
+      }
+    </script>
+  </body>
+</html>
