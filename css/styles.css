@@ -1,0 +1,266 @@
+/* styles.css */
+
+@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand+SC&display=swap');
+
+html {
+    /* background-color: #90bcd2; */
+    background-image: radial-gradient(circle at center, #b0d6e8 0, #94cce6 50%, #72c2e7 100%);
+}
+
+body {
+    /* margin: 0; */
+    margin-left: 10%;
+    margin-right: 10%;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    /* background-color: #8ecae6; */
+}
+
+#big-title {
+    border-radius: 12px;
+    padding: 10px;
+    text-align: center;
+    font-family: 'Patrick Hand SC', cursive; /* Festive font */
+    position: relative;
+}
+
+h1 {
+    margin: 0;
+    font-size: 2em;
+    letter-spacing: 4px;
+}
+
+#map {
+    border-radius: 12px;
+    flex: 1;
+}
+
+#festival-options-title {
+    margin-top: 3%;
+    text-align: center;
+    font-family: 'Patrick Hand SC', cursive; /* Festive font */
+    margin-bottom: 5%;
+}
+
+#festival-options-title span {
+    color: #d406ca;
+}
+
+h2 {
+    margin: 0;
+    font-size: 1.5em;
+}
+
+#festival-panel {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    font-family: 'Patrick Hand SC', cursive;
+}
+
+.festival-card {
+    --angle: 0deg;
+    flex: 0 0 calc(33.33% - 10px);
+    max-width: calc(33.33% - 10px);
+    box-sizing: border-box;
+    padding: 15px;
+    background-color: #e1f7ff;
+    position: relative;
+    overflow: hidden;
+    border: 4px solid;
+    border-radius: 12px;
+    border-image: linear-gradient(var(--angle), #bc00dd, #ff006e) 1;
+    animation: 5s rotate linear infinite;
+    background-origin: border-box;
+
+}
+
+.festival-card:hover{
+    box-shadow: 5px 5px 5px 5px #00000011;
+}
+
+.festival-number {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #bc00dd;
+}
+
+.festival-card h3 {
+    font-size: 1.3em;
+    margin-bottom: 5px;
+}
+
+.festival-card p {
+    font-size: 1.1em;
+    margin: 0;
+}
+
+iframe {
+    margin-top: -69px;
+    height: 400px;
+}
+
+.RemoveTop {
+    overflow: hidden;
+    position: relative;
+    top: 16px;
+}
+
+/* Animations */
+.animate-character
+{
+    text-transform: uppercase;
+    background-image: linear-gradient(
+    270deg,
+    #2d00f7 0%,
+    #8900f2 29%,
+    #bc00dd 67%,
+    #ff006e 100%
+  );
+  background-size: auto auto;
+  background-clip: border-box;
+  background-size: 200% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textclip 2.5s linear infinite;
+  display: inline-block;
+      font-size: 72px;
+}
+
+@keyframes textclip {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}    
+}
+
+.waviy {
+  position: relative;
+  -webkit-box-reflect: below -20px linear-gradient(transparent, rgba(0,0,0,.2));
+  font-size: 60px;
+}
+.waviy span {
+  position: relative;
+  display: inline-block;
+  color: #fff;
+  text-transform: uppercase;
+  animation: waviy 2.5s infinite;
+  animation-delay: calc(.1s * var(--i));
+  
+}
+@keyframes waviy {
+  0%,40%,100% {
+    transform: translateY(0)
+  }
+  20% {
+    transform: translateY(-20px)
+  }
+}
+
+@keyframes rotate {
+    to {
+        --angle: 360deg;
+    }
+}
+
+@property --angle {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+}
+
+.confetti {
+    width: 12px;
+    height: 12px;
+    background-color: #f2d74e;
+    position: absolute;
+    left: 50%;
+    animation: confetti 5s ease-in-out -2s infinite;
+    transform-origin: left top;
+}
+.confetti:nth-child(1) {
+    background-color: #f2d74e; left: 10%; animation-delay: 0;
+}
+.confetti:nth-child(2) {
+    background-color: #68acd4; left: 20%; animation-delay: -5s;
+}
+.confetti:nth-child(3) {
+    background-color: #da7268; left: 30%; animation-delay: -3s;
+}
+.confetti:nth-child(4) {
+    background-color: #ddd8bf; left: 40%; animation-delay: -2.5s;
+}
+.confetti:nth-child(5) {
+    background-color: #95c3de; left: 50%; animation-delay: -4s;
+}
+.confetti:nth-child(6) {
+    background-color: #b84339; left: 60%; animation-delay: -6s;
+}
+.confetti:nth-child(7) {
+    background-color: #d3b104; left: 70%; animation-delay: -1.5s;
+}
+.confetti:nth-child(8) {
+    background-color: #326a8a; left: 80%; animation-delay: -2s;
+}
+.confetti:nth-child(9) {
+    background-color: #ff9a91; left: 90%; animation-delay: -3.5s;
+}
+.confetti:nth-child(10) {
+    background-color: #f2d74e; left: 100%; animation-delay: -2.5s;
+}
+
+@keyframes confetti {
+    0% { transform: rotateZ(15deg) rotateY(0deg) translate(0,0); }
+    25% { transform: rotateZ(5deg) rotateY(360deg) translate(-5vw,20vh); }
+    50% { transform: rotateZ(15deg) rotateY(720deg) translate(5vw,60vh); }
+    75% { transform: rotateZ(5deg) rotateY(1080deg) translate(-10vw,80vh); }
+    100% { transform: rotateZ(15deg) rotateY(1440deg) translate(10vw,110vh); }
+}
+
+.buttons-right{
+    float: inline-end;
+}
+
+button{
+    background-color: #00000000;
+    border: none;
+    margin:5px;
+    padding:5px;
+    padding-bottom: 0;
+    font-family: 'Patrick Hand SC', cursive;
+    border-bottom: 2px solid #00000000;
+}
+
+button:hover{
+    border-bottom: 2px solid #ff9a91;
+    border-radius: 5px;
+}
+
+.go-button{
+    color:darkgreen;
+}
+
+.green-border{
+    background-color: lightgreen;
+    border-image: linear-gradient(var(--angle), lightblue , forestgreen) 1;
+}
+
+.sold-out{
+    color:darkgreen;
+}
+
+.red-border{
+    background-color: lightgray;
+    border: 5px solid red;
+    color:gray;
+}
