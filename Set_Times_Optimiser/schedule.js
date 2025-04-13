@@ -110,6 +110,11 @@ document.addEventListener("DOMContentLoaded", function () {
     if (invalidFields) {
       warningMessage.style.display = "block";
       warningMessage.textContent = "Please fill in all artist details!";
+      const firstInvalid = document.getElementsByClassName("invalid")[0];
+      firstInvalid.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
       return false;
     }
 
