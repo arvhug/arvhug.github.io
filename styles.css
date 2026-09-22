@@ -24,8 +24,8 @@ h1 { margin: 0; font-size: clamp(36px, 6vw, 46px); font-weight: 700; line-height
 .icons a { display: inline-flex; padding: 10px; margin: -10px; text-decoration: none; border-radius: 6px; }
 .icons svg { width: 24px; height: 24px; display: block; }
 main { display: flex; flex-direction: column; gap: 52px; padding-bottom: 96px; }
-section { display: flex; flex-direction: column; gap: 14px; scroll-margin-top: 24px; }
-h2 { margin: 0; font-size: 15px; font-weight: 600; color: var(--mute); letter-spacing: 0.02em; }
+section { display: flex; flex-direction: column; gap: 16px; scroll-margin-top: 24px; }
+h2 { margin: 0; font-size: 22px; font-weight: 600; color: var(--ink); letter-spacing: -0.015em; }
 p { margin: 0; color: var(--ink-2); font-size: 17px; }
 ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; font-size: 17px; }
 li { color: var(--ink-3); }
@@ -51,7 +51,7 @@ main.page { padding-top: 56px; }
 .prose ul { list-style: disc; padding-left: 20px; gap: 10px; }
 .prose li b { color: var(--ink); }
 main.page { gap: 44px; }
-.pubs h3 { margin: 6px 0 0; font-size: 15px; font-weight: 600; color: var(--ink); }
+.pubs h3 { margin: 8px 0 0; font-size: 15px; font-weight: 600; color: var(--mute); letter-spacing: 0.02em; }
 .pubs ul { gap: 10px; }
 .pubs li { font-size: 16px; }
 .pubs li a { text-decoration-color: var(--rule-soft); }
