@@ -25,7 +25,7 @@
 
   <main class="page prose">
     <h1 class="page">Finding the first quasars in Euclid</h1>
-    <p class="lede">A pipeline and a web console that search the Euclid survey for quasars at redshift 7 and beyond, built and run on one PC.</p>
+    <p class="lede">A pipeline and a web console that search the Euclid survey for quasars at redshift 7 and beyond.</p>
 
     <section>
       <h2>The problem</h2>
@@ -37,7 +37,7 @@
       <h2>What I built</h2>
       <p>An end-to-end search, from raw survey tiles to a vetted candidate list, and a console for looking at every candidate properly.</p>
       <ul>
-        <li><b>The crawl.</b> Every released Euclid tile, 8,528 of them, pulled and processed by two workers at around 250 tiles a day. The whole thing runs unattended on a Windows PC under Task Scheduler, with watchdogs that restart the workers and the console, and it has survived reboots and two hardware crashes without losing its place.</li>
+        <li><b>The crawl.</b> Every released Euclid tile, 8,528 of them, acquired and processed by parallel workers at around 250 tiles a day. The system runs unattended and recovers by itself: watchdog processes restart the workers and the console, and the crawl resumes from where it stopped after an unplanned outage.</li>
         <li><b>Bayesian scoring, not colour cuts.</b> For every source, the photometry is compared against quasar templates across redshift and against a library of M, L and T dwarf and galaxy templates. The output is a posterior probability that the source is a high-redshift quasar, with a photometric redshift, and the contaminants are modelled explicitly rather than cut around. External surveys are folded in where they cover the field.</li>
         <li><b>A gauntlet of vetoes.</b> A z &gt; 7 quasar must be invisible in the optical band. The optical veto uses aperture signal-to-noise on the median-subtracted stack, calibrated against 9,589 blank-sky positions: it was the only test that discriminated, since pixel-peak and streak tests fired on empty sky just as often as on real sources. Further flags mark faint red objects, sources near bright stars, and tile edges.</li>
         <li><b>Validation against what is known.</b> Published high-redshift quasars, their known contaminants and a lower-redshift quasar catalogue are cross-matched every six hours. Known quasars in the footprint are recovered blind at probabilities near one. One known quasar is scored low because a T-dwarf template fits its colours better; that is a genuine degeneracy in four-band photometry, documented rather than patched.</li>
@@ -55,7 +55,7 @@
         <li>a vetting column, good, bad or unsure, whose labels are accumulating into a training set for a classifier;</li>
         <li>export as CSV with a magnitude cut, and a one-page PDF sheet per candidate for sharing with collaborators.</li>
       </ul>
-      <p>Under the hood the views are served from DuckDB with caching, rescoring is incremental so only new sources are touched, and the heavy views are kept warm. It is boring engineering, which is the point: the science runs on it every day.</p>
+      <p>The views are served from DuckDB with a caching layer, scoring is incremental so only new sources are recomputed, and the expensive views are kept warm between requests. The group uses it daily.</p>
     </section>
 
     <section>
