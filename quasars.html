@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Euclid quasars · Arvind Hughes</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="wrap">
+  <nav class="site" aria-label="Site">
+    <a class="home" href="./">arv</a>
+    <a href="about.html">about</a>
+    <a href="projects.html" aria-current="page">projects</a>
+    <a href="cv.html">cv</a>
+  </nav>
+
+  <main class="page prose">
+    <h1 class="page">Finding the first quasars in Euclid</h1>
+    <p class="lede">A pipeline and a web console that search the Euclid survey for quasars at redshift 7 and beyond, built and run on one PC.</p>
+
+    <section>
+      <h2>The problem</h2>
+      <p>Euclid is imaging about 15,000 square degrees in one optical band and three near-infrared bands. Somewhere in that footprint are the most distant quasars anyone will find this decade, at redshifts where the Universe was under 800 million years old. At the survey's depth there is roughly one of them per thousand square degrees.</p>
+      <p>Brown dwarfs in our own galaxy have almost the same colours in those four bands and outnumber the quasars by hundreds to one. Every candidate list is therefore a contamination problem before it is a discovery problem. It is the same statistics as finding extremely metal-poor stars in a spectroscopic survey, which was my PhD: a rare class, a common look-alike, and a decision that has to be made from a handful of noisy numbers.</p>
+    </section>
+
+    <section>
+      <h2>What I built</h2>
+      <p>An end-to-end search, from raw survey tiles to a vetted candidate list, and a console for looking at every candidate properly.</p>
+      <ul>
+        <li><b>The crawl.</b> Every released Euclid tile, 8,528 of them, pulled and processed by two workers at around 250 tiles a day. The whole thing runs unattended on a Windows PC under Task Scheduler, with watchdogs that restart the workers and the console, and it has survived reboots and two hardware crashes without losing its place.</li>
+        <li><b>Bayesian scoring, not colour cuts.</b> For every source, the photometry is compared against quasar templates across redshift and against a library of M, L and T dwarf and galaxy templates. The output is a posterior probability that the source is a high-redshift quasar, with a photometric redshift, and the contaminants are modelled explicitly rather than cut around. External surveys are folded in where they cover the field.</li>
+        <li><b>A gauntlet of vetoes.</b> A z &gt; 7 quasar must be invisible in the optical band. The optical veto uses aperture signal-to-noise on the median-subtracted stack, calibrated against 9,589 blank-sky positions: it was the only test that discriminated, since pixel-peak and streak tests fired on empty sky just as often as on real sources. Further flags mark faint red objects, sources near bright stars, and tile edges.</li>
+        <li><b>Validation against what is known.</b> Published high-redshift quasars, their known contaminants and a lower-redshift quasar catalogue are cross-matched every six hours. Known quasars in the footprint are recovered blind at probabilities near one. One known quasar is scored low because a T-dwarf template fits its colours better; that is a genuine degeneracy in four-band photometry, documented rather than patched.</li>
+        <li><b>Selection function and purity.</b> Injection-recovery grids over luminosity and redshift with a hundred realisations per cell give completeness as a function of magnitude. Purity comes from 24 dwarf spectral types and two galaxy templates injected at fifty realisations each. Predicted yields land slightly above the published Euclid forecasts in every magnitude bin.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>The console</h2>
+      <p>A web app for vetting candidates, because a probability is not a decision. Each candidate gets a page with:</p>
+      <ul>
+        <li>cutouts from every survey that covers it, ordered by wavelength: Pan-STARRS or Legacy Survey in the optical, Euclid itself, unWISE in the mid-infrared, GALEX in the ultraviolet, VLASS and LoTSS in the radio, HSC where it exists;</li>
+        <li>the spectral energy distribution against the best quasar and best dwarf templates;</li>
+        <li>an automatic check of the Hubble archive for existing observations;</li>
+        <li>a vetting column, good, bad or unsure, whose labels are accumulating into a training set for a classifier;</li>
+        <li>export as CSV with a magnitude cut, and a one-page PDF sheet per candidate for sharing with collaborators.</li>
+      </ul>
+      <p>Under the hood the views are served from DuckDB with caching, rescoring is incremental so only new sources are touched, and the heavy views are kept warm. It is boring engineering, which is the point: the science runs on it every day.</p>
+    </section>
+
+    <section>
+      <h2>What is next</h2>
+      <p>Moving from the mosaics to Euclid's per-observation stacked frames, which keep detail the mosaics lose, and training a classifier on the human vetting labels so the console can rank what a person should look at first.</p>
+    </section>
+  </main>
+</div>
+</body>
+</html>
