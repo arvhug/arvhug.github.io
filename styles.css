@@ -55,3 +55,9 @@ main.page { gap: 44px; }
 .pubs ul { gap: 10px; }
 .pubs li { font-size: 16px; }
 .pubs li a { text-decoration-color: var(--rule-soft); }
+
+.research { gap: 28px; }
+.research article { display: flex; flex-direction: column; gap: 10px; }
+.research h3 { margin: 0; font-size: 18px; font-weight: 600; color: var(--ink); letter-spacing: -0.01em; }
+.research .refs { font-size: 15px; color: var(--mute); }
+.research .refs a { text-decoration-color: var(--rule-soft); }

@@ -12,7 +12,7 @@
 <meta property="og:title" content="About · Arvind Hughes">
 <meta property="og:description" content="About Arvind Hughes: quantitative research at Auros, astrostatistics at Imperial College London, and property valuation modelling.">
 <meta name="twitter:card" content="summary">
-<link rel="stylesheet" href="styles.css?v=2">
+<link rel="stylesheet" href="styles.css?v=3">
 </head>
 <body>
 <div class="wrap">
@@ -27,6 +27,25 @@
       <h1 class="page">About</h1>
       <p>Most recently I was a Quantitative Researcher on the high-frequency trading desk at Auros, a proprietary trading firm. Before that, I was a Postdoctoral Researcher in the Astrostatistics Group at Imperial College London, and completed my PhD at the Max Planck Institute for Astronomy and Macquarie University. My research developed statistical and machine learning methods for large astrophysical surveys, first for the Milky Way and then for the Euclid mission, along with the pipelines and tooling that ran them end to end.</p>
       <p>Prior to academia, I was Chief Data Scientist / Head of Research at Superestate, where we built a property valuation tool called <a href="https://vali.com.au/">Vali</a>. I have also worked as a Senior Quantitative Analyst for the property analytics and data company Hometrack, where I was responsible for designing and maintaining statistical models on the property market.</p>
+    </section>
+    <section class="research">
+      <h2>Research</h2>
+      <article>
+        <h3>Finding the oldest stars in the Milky Way</h3>
+        <p>Extremely metal-poor stars formed from gas that earlier generations of stars had barely enriched, which makes them some of the best fossils we have of the early Galaxy. They are also very rare. I took around 600,000 high-resolution spectra from the GALAH survey and used a machine-learning method (t-SNE) to map them, so that the few unusual spectra separated out from everything else. That gave 54 new candidates with a thousandth of the Sun's iron or less, six of them below about a three-thousandth. About 20% sit on the main sequence, an unusually high share for this kind of search.</p>
+        <p>A follow-up study I co-authored took spectra of 83 candidates from the same selection that had no earlier metallicity measurement. About a third came in at [Fe/H] &le; &minus;2.75 and fewer than 10% were contaminants, so the selection held up.</p>
+        <p class="refs"><a href="https://arxiv.org/abs/2203.10843">Hughes et al. 2022, ApJ</a> · <a href="https://arxiv.org/abs/2210.05161">Da Costa et al. 2023, MNRAS</a></p>
+      </article>
+      <article>
+        <h3>Sorting stars, quasars and galaxies in Gaia</h3>
+        <p>Gaia measures nearly two billion sources, and only a small fraction lie outside our Galaxy. A classifier learns the class mix of its training set, and quasars and galaxies are far more common in labelled training data than they are on the sky, so its raw probabilities overstate them. I combined Gaia's photometry and astrometry with CatWISE infrared data, compared Gaussian mixture models, XGBoost and CatBoost, and then corrected the classifier's probabilities with priors that encode how rare these objects really are, including how that rarity changes with Galactic latitude and brightness. On Gaia DR3's quasar and galaxy candidate samples, the result reached 97% purity for quasars and 99.9% for galaxies.</p>
+        <p class="refs"><a href="https://arxiv.org/abs/2210.05505">Hughes, Bailer-Jones &amp; Jamal 2022, A&amp;A</a></p>
+      </article>
+      <article>
+        <h3>Euclid's most distant quasars</h3>
+        <p>I am a co-author on the Euclid paper reporting 31 new quasars at redshifts 6.6 to 7.8, found in the first year and a half of the Euclid Wide Survey. Twelve of them lie beyond redshift 7, more than doubling the number known there, and one at z &asymp; 7.77 is the most distant quasar yet reported. My own search of the survey is written up <a href="quasars.html">here</a>.</p>
+        <p class="refs"><a href="https://arxiv.org/abs/2607.03432">Yang et al. 2026, A&amp;A</a></p>
+      </article>
     </section>
   </main>
 </div>
